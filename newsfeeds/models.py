@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Country(models.Model):
@@ -10,6 +11,7 @@ class Country(models.Model):
 
 
 class News(models.Model):
+    tag = models.CharField(max_length=100)
     heading = models.CharField(max_length=100)
     body = models.TextField()
     time = models.DateTimeField(auto_now_add=True)
@@ -17,4 +19,4 @@ class News(models.Model):
     country = models.ForeignKey(Country)
 
     def __str__(self):
-        return self.heading
+        return self.tag
