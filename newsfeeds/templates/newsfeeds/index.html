@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <p>Welcome to Tweeting Newsfeeds, select the country to see the news</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="submit" />
+        </form>
+    </div>
+{% endblock %}
