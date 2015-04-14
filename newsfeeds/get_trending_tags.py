@@ -1,5 +1,9 @@
 import twitter
 import json
+import string
+import urllib
+from urllib2 import Request, urlopen, URLError
+from bs4 import BeautifulSoup
 
 
 def get_tags(woe_id):
@@ -29,7 +33,67 @@ def get_tags(woe_id):
 
     #world_trends = twitter_api.trends.place(_id=WORLD_WOE_ID)
     country_trends = twitter_api.trends.place(_id=in_woe_id)
-    return country_trends
+    trend_list = country_trends[0].get('trends')
+    for tag in trend_list:
+        print tag.get('name')
+    return [(tag.get('name'), keyword_generator(tag.get('name'))) for tag in trend_list]
+
+
+def keyword_generator(hash_tag):
+        """
+        takes a string hash_tag as argument and returns another string
+        which is in searchable form
+         """
+        new_hash_tag = ''
+        if hash_tag[0] == '#':
+            hash_tag = hash_tag[1:]
+            uppercase = string.ascii_uppercase
+            for i in range(len(hash_tag)):
+                if hash_tag[i] in uppercase:
+                    new_hash_tag += ' '
+                new_hash_tag += hash_tag[i]
+        else:
+            new_hash_tag = hash_tag
+        return new_hash_tag.strip()
+
+
+def get_urls(search_for):
+    query = urllib.urlencode({'q': search_for})
+    url = 'http://ajax.googleapis.com/ajax/services/search/news?v=1.0&%s' % query
+    search_response = urllib.urlopen(url)
+    search_results = search_response.read()
+    results = json.loads(search_results)
+    # print results
+    data = results.get('responseData')
+    # print 'Total results: %s' % data['cursor']['estimatedResultCount']
+    hits = data.get('results')
+    #print 'Top %d hits:' % len(hits)
+    urls = []
+    for h in hits:
+        # print ' ', h['url']
+        urls.append(h['url'])
+    return urls
+    # print 'For more results, see %s' % data['cursor']['moreResultsUrl']
+
+
+def get_articles(news_url):
+    token = 'daeef574b875b478eb705e8fbd238bfa'
+    url = 'http://api.diffbot.com/v2/article?token=' + token + '&url=' + news_url
+    request = Request(url)
+    response = urlopen(request)
+    data = json.load(response)
+    print data
+    if data.get('images'):
+        return {
+            'title': data.get('title'),
+            'text': data.get('text'),
+            'image_url': data.get('images')[0].get('url'),
+            }
+    else:
+        return {
+            'title': data.get('title'),
+            'text': data.get('text'),
+            }
 
 if __name__ == '__main__':
     india_trends = get_tags(23424848)

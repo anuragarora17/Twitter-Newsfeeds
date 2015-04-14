@@ -1,10 +1,11 @@
+import string
+
 from django.views.generic import FormView, ListView
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-
 from .forms import CountryForm
 from .models import Country, News
-from get_trending_tags import get_tags
+from get_trending_tags import get_tags, keyword_generator, get_urls, get_articles
 
 
 class CountryFormView(FormView):
