@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
+
 class Country(models.Model):
     name = models.CharField(max_length=100)
     code = models.IntegerField(primary_key=True)
