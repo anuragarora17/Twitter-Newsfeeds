@@ -23,19 +23,13 @@ def get_tags(woe_id):
 
     # instantiating twitter api to get top #tags and news
     twitter_api = twitter.Twitter(auth=auth)
-
-    # WORLD_WOE_ID = 1
-    # IN_WOE_ID = 23424848
     in_woe_id = woe_id
     # Prefix ID with the underscore for query string parameterization.
     # Without the underscore, the twitter package appends the ID value
     # to the URL itself as a special case keyword argument.
 
-    #world_trends = twitter_api.trends.place(_id=WORLD_WOE_ID)
     country_trends = twitter_api.trends.place(_id=in_woe_id)
     trend_list = country_trends[0].get('trends')
-    for tag in trend_list:
-        print tag.get('name')
     return [(tag.get('name'), keyword_generator(tag.get('name'))) for tag in trend_list]
 
 
@@ -63,11 +57,9 @@ def get_urls(search_for):
     search_response = urllib.urlopen(url)
     search_results = search_response.read()
     results = json.loads(search_results)
-    # print results
     data = results.get('responseData')
     # print 'Total results: %s' % data['cursor']['estimatedResultCount']
     hits = data.get('results')
-    #print 'Top %d hits:' % len(hits)
     urls = []
     for h in hits:
         # print ' ', h['url']
@@ -82,7 +74,6 @@ def get_articles(news_url):
     request = Request(url)
     response = urlopen(request)
     data = json.load(response)
-    print data
     if data.get('images'):
         return {
             'title': data.get('title'),
