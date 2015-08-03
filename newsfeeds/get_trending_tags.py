@@ -30,7 +30,8 @@ def get_tags(woe_id):
 
     country_trends = twitter_api.trends.place(_id=in_woe_id)
     trend_list = country_trends[0].get('trends')
-    return [(tag.get('name'), keyword_generator(tag.get('name'))) for tag in trend_list]
+    return [(tag.get('name'), keyword_generator(tag.get('name')))
+            for tag in trend_list]
 
 
 def keyword_generator(hash_tag):
@@ -53,7 +54,8 @@ def keyword_generator(hash_tag):
 
 def get_urls(search_for):
     query = urllib.urlencode({'q': search_for})
-    url = 'http://ajax.googleapis.com/ajax/services/search/news?v=1.0&%s' % query
+    url = 'http://ajax.googleapis.com/ajax/services/search/news?v=1.0&%s'\
+          % query
     search_response = urllib.urlopen(url)
     search_results = search_response.read()
     results = json.loads(search_results)
@@ -70,7 +72,8 @@ def get_urls(search_for):
 
 def get_articles(news_url):
     token = 'daeef574b875b478eb705e8fbd238bfa'
-    url = 'http://api.diffbot.com/v2/article?token=' + token + '&url=' + news_url
+    url = 'http://api.diffbot.com/v2/article?token=' +\
+          token + '&url=' + news_url
     request = Request(url)
     response = urlopen(request)
     data = json.load(response)
@@ -88,7 +91,7 @@ def get_articles(news_url):
 
 if __name__ == '__main__':
     india_trends = get_tags(23424848)
-    #print json.dumps(world_trends, indent=1)
+    # print json.dumps(world_trends, indent=1)
     print json.dumps(india_trends, indent=1)
 
     for trend in india_trends:

@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <title>Tweeting Newsfeeds</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -13,14 +13,34 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <style>
+        html, body{
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            padding: 0;
+        }
+        #footer{
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+        }
+
+    </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="jumbotron">
             <h1> Tweeting Newsfeeds <small>whats around the world</small></h1>
         </div>
-        {% block content %}
-        {% endblock %}
+        <div class="body">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="footer">
+            <p style="text-align: center;">Copyright &#169; 2015 Software Incubator</p>
+        </div>
     </div>
 </body>
 </html>
