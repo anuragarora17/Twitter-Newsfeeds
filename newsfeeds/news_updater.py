@@ -17,24 +17,14 @@ def update(country_list):
             if urls:
                 article = get_articles(urls[0])
                 if not article.get('errorCode'):
-                    if article.get('image_url'):
-                        news = News(
-                            tag=k_word[0],
-                            heading=article.get('title'),
-                            body=article.get('text'),
-                            link=urls[0],
-                            country=country,
-                            image_url=article.get('image_url'),
-                            )
-                    else:
-                        news = News(
-                            tag=k_word[0],
-                            heading=article.get('title'),
-                            body=article.get('text'),
-                            link=urls[0],
-                            country=country,
-                            image_url='',
-                            )
+                    news = News(
+                        tag=k_word[0],
+                        heading=article.get('title'),
+                        body=article.get('text'),
+                        link=urls[0],
+                        country=country,
+                        image_url=article.get('image_url', ''),
+                        )
                     news.save()
         print 'Updated tweets of ' + country.name
 

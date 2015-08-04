@@ -60,20 +60,17 @@ def get_urls(search_for):
     search_results = search_response.read()
     results = json.loads(search_results)
     data = results.get('responseData')
-    # print 'Total results: %s' % data['cursor']['estimatedResultCount']
     hits = data.get('results')
     urls = []
     for h in hits:
-        # print ' ', h['url']
         urls.append(h['url'])
     return urls
-    # print 'For more results, see %s' % data['cursor']['moreResultsUrl']
 
 
 def get_articles(news_url):
-    token = 'daeef574b875b478eb705e8fbd238bfa'
-    url = 'http://api.diffbot.com/v2/article?token=' +\
-          token + '&url=' + news_url
+    token = 'daeef574b875b478eb705e8fbd238bfa'  # replace with your own token
+    url = ('http://api.diffbot.com/v2/article?token=' +
+           token + '&url=' + news_url)
     request = Request(url)
     response = urlopen(request)
     data = json.load(response)
@@ -91,7 +88,6 @@ def get_articles(news_url):
 
 if __name__ == '__main__':
     india_trends = get_tags(23424848)
-    # print json.dumps(world_trends, indent=1)
     print json.dumps(india_trends, indent=1)
 
     for trend in india_trends:
