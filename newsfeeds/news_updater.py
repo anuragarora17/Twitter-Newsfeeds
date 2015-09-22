@@ -15,17 +15,17 @@ def update(country_list):
         for k_word in keywords:
             urls = get_urls(k_word[1])
             if urls:
-                article = get_articles(urls[0])
-                if not article.get('errorCode'):
-                    news = News(
-                        tag=k_word[0],
-                        heading=article.get('title'),
-                        body=article.get('text'),
-                        link=urls[0],
-                        country=country,
-                        image_url=article.get('image_url', ''),
-                        )
-                    news.save()
+             article = get_articles(urls[0])
+             if not article.get('errorCode'):
+                 news = News(
+                     tag=k_word[0],
+                     heading=article.get('title'),
+                     body=article.get('text'),
+                     link=urls[0],
+                     country=country,
+                     image_url=article.get('image_url', '')
+                     )
+                 news.save()
         print 'Updated tweets of ' + country.name
 
 

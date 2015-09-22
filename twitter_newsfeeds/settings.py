@@ -63,10 +63,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'newsfeeds',
-        'HOST':'',
-        'PORT':'',
-        'USER': 'user',
-        'PASSWORD': 'user',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306'
 
 
     }

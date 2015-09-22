@@ -68,7 +68,7 @@ def get_urls(search_for):
 
 
 def get_articles(news_url):
-    token = 'daeef574b875b478eb705e8fbd238bfa'  # replace with your own token
+    token = '28b6ddc8b08e3a3ec736c84f3c8651b8'  # replace with your own token
     url = ('http://api.diffbot.com/v2/article?token=' +
            token + '&url=' + news_url)
     request = Request(url)

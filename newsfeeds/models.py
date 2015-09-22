@@ -13,7 +13,7 @@ class Country(models.Model):
 class News(models.Model):
     tag = models.CharField(max_length=100)
     heading = models.CharField(max_length=100, null=True, blank=True)
-    body = models.TextField()
+    body = models.TextField(null=True, blank=True)
     time = models.DateTimeField(auto_now_add=True)
     link = models.CharField(max_length=200)
     country = models.ForeignKey(Country)
